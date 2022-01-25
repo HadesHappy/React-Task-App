@@ -1,13 +1,428 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700;900&display=swap");
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #464646;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #e72a4a;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ff4c6a;
+}
+
+body {
+  padding: 2vh 0;
+  background-color: #111111;
+  color: #ffffff;
+  position: relative;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.Home {
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+h1 {
+  color: #ff4c6a;
+}
+
+.subtitle {
+  color: rgb(231, 231, 231);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.title-img {
+  width: 3%;
+}
+
+.addButton {
+  background-color: transparent;
+  border: none;
+  width: 4rem;
+  height: 4rem;
+}
+
+.addButtonImage {
+  transition: all 0.25s ease;
+  width: 100%;
+  filter: invert(34%) sepia(21%) saturate(4607%) hue-rotate(321deg) brightness(107%) contrast(88%);
+}
+
+.addButtonImage:hover {
+  transform: scale(1.09);
+  cursor: pointer;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(127deg) brightness(101%) contrast(101%);
+}
+
+.overlay {
+  z-index: 10;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  width: 100%;
+  height: 100%;
+  animation: fade-in-overlay 0.25s ease;
+}
+
+@keyframes fade-in-overlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.taskInput {
+  z-index: 9999;
+  box-shadow: #64646f1c 0px 7px 29px 0px;
+  border-radius: 5px;
+  position: absolute;
+  background-color: #343434;
+  width: 80%;
+  height: 30vh;
+  max-height: 500px;
+  max-width: 500px;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: fade-in 0.5s ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0.4;
+    top: 25%;
+  }
+  to {
+    top: 35%;
+
+    opacity: 1;
+  }
+}
+
+form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.exitButton {
+  width: 2rem;
+  top: 1rem;
+  right: 1rem;
+  position: absolute;
+  filter: invert(34%) sepia(21%) saturate(4607%) hue-rotate(321deg) brightness(107%) contrast(88%);
+  transition: all 0.25s ease;
+}
+
+.exitButton:hover {
+  transform: scale(1.09);
+  cursor: pointer;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(127deg) brightness(101%) contrast(101%);
+}
+
+input {
+  position: relative;
+  color: #cfcfcf;
+  text-align: center;
+  background: 0;
+  border: 0;
+  outline: none;
+  width: 100%;
+  font-size: 1.5em;
+  transition: padding 0.3s 0.2s ease;
+}
+
+.inputError {
+  font-size: 0.8rem;
+  color: #ff4e4e;
+  position: absolute;
+  top: 25%;
+}
+
+input:focus {
+  padding-bottom: 5px;
+}
+input:focus + .line:after {
+  transform: scaleX(1);
+}
+.field {
+  position: relative;
+}
+.field .line {
+  width: 100%;
+  height: 3px;
+  position: absolute;
+  bottom: -8px;
+  background: #bdc3c7;
+}
+.field .line:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  transform: scalex(0);
+  transition: transform 0.3s ease;
+  background: #ff4c6a;
+}
+
+.submitButton {
+  border-radius: 5px;
+  font-weight: 500;
+  padding: 0.8rem;
+  border: none;
+  outline: none;
+  background-color: #ff4c6a;
+  color: #ffffff;
+  transition: all 0.25s ease;
+}
+
+.submitButton:hover {
+  background-color: #e72a4a;
+  cursor: pointer;
+}
+
+.TaskList {
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.toDoItem {
+  display: grid;
+  place-items: center;
+  position: relative;
+  /* padding: 2rem; */
+  width: 100%;
+  height: 10vh;
+  background-color: #363636;
+  animation: slide-in 1s ease;
+  transition: all 0.25s ease;
+}
+
+.toDoItem:hover {
+  background-color: #464646;
+}
+
+.toDoItem a {
+  color: white;
+  text-decoration: none;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0.4;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.deleteTaskButton {
+  z-index: 2;
+  width: 2rem;
+  position: absolute;
+  right: 4%;
+  top: 35%;
+  filter: invert(100%);
+  transition: all 0.25s ease;
+}
+
+.deleteTaskButton:hover {
+  cursor: pointer;
+  transform: scale(1.08);
+  filter: invert(34%) sepia(21%) saturate(4607%) hue-rotate(321deg) brightness(107%) contrast(88%);
+}
+
+.TaskPage {
+  margin: 0 auto;
+  max-width: 700px;
+  padding-bottom: 5rem;
+}
+
+.titleWrapper {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e72a4a;
+}
+
+.taskPageTitle {
+  color: #e72a4a;
+  font-size: 2.6rem;
+}
+
+.taskPageDate {
+  font-weight: 200;
+  font-style: italic;
+}
+.taskPageDate span {
+  font-weight: 500;
+  margin-right: 0.5rem;
+  color: #e72a4a;
+}
+
+.taskPageDescription {
+  font-weight: 300;
+  text-align: left;
+  font-size: 1.55rem;
+}
+
+.credits {
+  bottom: 0;
+  position: absolute;
+  font-size: 0.75rem;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.credits span {
+  color: #ff4c6a;
+}
+
+.credits a {
+  text-decoration: none;
+  color: #ff4c6a;
+}
+
+@media (max-width: 730px) {
+  html {
+    font-size: 13px;
+  }
+
+  body {
+    padding: 2.5rem 1rem;
+  }
+
+  .Home h1 {
+    font-size: 2.2rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .subtitle img {
+    width: 1.7rem;
+  }
+
+  .titleWrapper {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e72a4a;
+  }
+
+  .taskPageDate {
+    font-size: 1.1rem;
+    font-weight: 200;
+    font-style: italic;
+  }
+
+  .toDoItem {
+    display: grid;
+    place-items: center;
+    position: relative;
+    /* padding: 2rem; */
+    width: 100%;
+    height: 10vh;
+    background-color: #363636;
+    animation: slide-in 1s ease;
+    transition: all 0.25s ease;
+  }
+
+  .credits {
+    font-size: 1rem;
+    bottom: 0;
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .credits span {
+    color: #ff4c6a;
+  }
+
+  .credits a {
+    text-decoration: none;
+    color: #ff4c6a;
+  }
+}
+
+.fade-in-left {
+  animation: fade-in-left 0.6s ease;
+}
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-150px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.fade-in-right {
+  animation: fade-in-right 0.6s ease;
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(150px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
 }
